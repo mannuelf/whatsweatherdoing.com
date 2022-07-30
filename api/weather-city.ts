@@ -20,7 +20,9 @@ export default async (req: ServerRequest): Promise<Response> => {
 			const response = await fetch(url);
 			const jsonData = await response.json();
 			_jsonData = jsonData;
-
+			console.log("response.statusText", response.statusText);
+			console.log("response.status", response.status);
+			console.log("response.url", response.url);
 			console.log(jsonData);
 		}
 		return new Response(JSON.stringify(_jsonData), {

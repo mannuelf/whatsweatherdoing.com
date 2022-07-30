@@ -22,15 +22,16 @@ export default async (req: ServerRequest): Promise<Response> => {
 			}
 		}
 
-		const url = new URL(
-			`${baseUrl}?lat=${_lat}&lon=${_lon}&appid=${apiKey}&units=metric`
-		);
+		const url = new URL(`${baseUrl}?lat=${_lat}&lon=${_lon}&appid=${apiKey}`);
 		console.log(url.toString());
 
 		const response = await fetch(url);
 		const jsonData = await response.json();
 		_jsonData = jsonData;
 
+		console.log("response.statusText", response.statusText);
+		console.log("response.status", response.status);
+		console.log("response.url", response.url);
 		console.log(jsonData);
 
 		return new Response(JSON.stringify(_jsonData), {
