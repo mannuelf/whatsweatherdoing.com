@@ -1,71 +1,18 @@
-import {
-	Application,
-	isHttpError,
-	Status,
-	Router,
-} from "https://deno.land/x/oak/mod.ts";
-import { weatherData } from "./data/data.ts";
+import { ServerRequest } from "../dependencies.ts";
 
-const app = new Application();
-const router = new Router();
+/**
+ * Interface of HTTP server response.
+ * If body is a Reader, response would be chunked.
+ * If body is a string, it would be UTF-8 encoded by default.
+ */
+export interface Response {
+	status?: number;
+	headers?: Headers;
+	body?: Uint8Array | Deno.Reader | string;
+	trailers?: () => Promise<Headers> | Headers;
+}
 
-// Logger
-app.use(async (ctx, next) => {
-	await next();
-	const rt = ctx.response.headers.get("X-Response-Time");
-	console.log(`${ctx.request.method} ${ctx.request.url} - ${rt}`);
-});
-
-// Timing
-app.use(async (ctx, next) => {
-	const start = Date.now();
-	await next();
-	const ms = Date.now() - start;
-	ctx.response.headers.set("X-Response-Time", `${ms}ms`);
-});
-
-app.addEventListener("listen", ({ hostname, port, secure }) => {
-	console.log(
-		`Listening on: ${secure ? "https://" : "http://"}${
-			hostname ?? "localhost"
-		}:${port}`
-	);
-});
-
-// Model
-const _weatherData = new Map<string, any>();
-
-_weatherData.set("1", { ...weatherData });
-
-// Routes
-router
-	.get("/", async (context, next) => {
-		try {
-			context.response.body = "Hello World!";
-			console.log(context.response);
-			console.log(weatherData);
-			await next();
-		} catch (error) {
-			if (isHttpError(error)) {
-				switch (error.status) {
-					case Status.NotFound:
-						console.log("404 Not found");
-						break;
-					default:
-						"TBA";
-				}
-			} else {
-				console.log(`thrown: ${error}`);
-				throw error;
-			}
-		}
-	})
-	.get("/v1/weather-data", async (context, next) => {
-		context.response.body = Array.from(_weatherData.values());
-		console.log(context.response.body);
+export default (req: ServerRequest) =>
+	req.respond({
+		body: "whatsweatherdoing API",
 	});
-
-app.use(router.routes());
-app.use(router.allowedMethods());
-
-export default app.handle;
