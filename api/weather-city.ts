@@ -4,6 +4,7 @@ import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
 config();
 
 export default async (req: ServerRequest): Promise<Response> => {
+	const baseUrl = "https://api.openweathermap.org/data/2.5/weather";
 	const apiKey = Deno.env.get("OPEN_WEATHER_API_KEY");
 	let _jsonData;
 
@@ -11,7 +12,7 @@ export default async (req: ServerRequest): Promise<Response> => {
 		const params = new URLSearchParams(req.url);
 		for (const param of params) {
 			const url = new URL(
-				`https://api.openweathermap.org/data/2.5/weather?q=${param[1]}&units=metric&appid=${apiKey}`
+				`${baseUrl}?q=${param[1]}&units=metric&appid=${apiKey}`
 			);
 
 			const response = await fetch(url);

@@ -1,6 +1,6 @@
 import { ServerRequest } from "https://deno.land/std@0.89.0/http/server.ts";
 import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
-import { RoutParams } from "./route-params.ts";
+import { QueryStrings } from "./query-strings.ts";
 
 config();
 
@@ -14,11 +14,11 @@ export default async (req: ServerRequest): Promise<Response> => {
 	try {
 		const params = new URLSearchParams(req.url);
 		for (const [key, value] of params.entries()) {
-			if (key === RoutParams.lon) {
-				_lon = value;
-			}
-			if (key !== RoutParams.lon) {
+			if (key !== QueryStrings.lon) {
 				_lat = value;
+			}
+			if (key === QueryStrings.lon) {
+				_lon = value;
 			}
 		}
 
