@@ -1,4 +1,4 @@
-import { ServerRequest } from "../dependencies.ts";
+import { ServerRequest } from "../deps.ts";
 
 export default async (req: ServerRequest): Promise<Response> => {
 	const apiKey = "75c739eaf47f79ff08daf1edbaa12036";
