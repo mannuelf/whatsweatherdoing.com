@@ -1,4 +1,4 @@
-import { ServerRequest } from "../dependencies.ts";
+import { Router, ServerRequest } from "../dependencies.ts";
 
 /**
  * Interface of HTTP server response.
