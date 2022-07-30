@@ -12,7 +12,7 @@
     "url": "https://github.com/TooTallNate/vercel-deno.git"
   },
   "files": [
-    "dist"
+    "public"
   ],
   "scripts": {
     "prebuild": "rm -rfv public",
