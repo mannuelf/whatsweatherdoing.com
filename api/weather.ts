@@ -23,8 +23,9 @@ export default async (req: ServerRequest): Promise<Response> => {
 		}
 
 		const url = new URL(
-			`${baseUrl}?lat=${_lat}&lon=${_lon}&units=metric&appid=${apiKey}`
+			`${baseUrl}?lat=${_lat}&lon=${_lon}&appid=${apiKey}&units=metric`
 		);
+		console.log(url.toString());
 
 		const response = await fetch(url);
 		const jsonData = await response.json();

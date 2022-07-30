@@ -12,8 +12,10 @@ export default async (req: ServerRequest): Promise<Response> => {
 		const params = new URLSearchParams(req.url);
 		for (const param of params) {
 			const url = new URL(
-				`${baseUrl}?q=${param[1]}&units=metric&appid=${apiKey}`
+				`${baseUrl}?q=${param[1]}&appid=${apiKey}&units=metric`
 			);
+
+			console.log(url.toString());
 
 			const response = await fetch(url);
 			const jsonData = await response.json();
