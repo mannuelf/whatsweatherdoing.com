@@ -1,7 +1,7 @@
 import { ServerRequest } from "https://deno.land/std@0.89.0/http/server.ts";
 import { config } from "https://deno.land/x/dotenv/mod.ts";
-console.log(config());
 
+config();
 export default async (req: ServerRequest): Promise<Response> => {
 	const apiKey = Deno.env.get("OPEN_WEATHER_API_KEY");
 	let _jsonData;
