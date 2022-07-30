@@ -14,6 +14,8 @@ export default async (req: ServerRequest): Promise<Response> => {
 	try {
 		const params = new URLSearchParams(req.url);
 		for (const [key, value] of params.entries()) {
+			console.log(">>>", key, value);
+
 			if (key !== QueryStrings.lon) {
 				_lat = value;
 			}
@@ -21,6 +23,7 @@ export default async (req: ServerRequest): Promise<Response> => {
 				_lon = value;
 			}
 		}
+		console.log("lat-long", _lat, _lon);
 
 		const url = new URL(`${baseUrl}?lat=${_lat}&lon=${_lon}&appid=${apiKey}`);
 		console.log(url.toString());
