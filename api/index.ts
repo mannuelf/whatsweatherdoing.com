@@ -14,5 +14,5 @@ export interface Response {
 
 export default (req: ServerRequest) =>
 	req.respond({
-		body: "whatsweatherdoing API",
+		body: "whatsweatherdoing.com API",
 	});
