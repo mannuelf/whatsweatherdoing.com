@@ -19,7 +19,7 @@ export default async (req: ServerRequest): Promise<Response> => {
 
 			console.log(jsonData);
 		}
-		return new Response(_jsonData, {
+		return new Response(JSON.stringify(_jsonData), {
 			status: 200,
 			headers: { "content-type": "application/json; charset=utf-8" },
 		});
