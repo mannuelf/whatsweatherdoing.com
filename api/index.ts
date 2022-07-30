@@ -68,4 +68,4 @@ router
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.listen({ port: 8000 });
+export default app.handle;
