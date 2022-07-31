@@ -30,16 +30,21 @@ export default async (req: ServerRequest): Promise<Response> => {
 		req.headers.append("Access-Control-Allow-Methods", "GET");
 		console.log("req.headers", req.headers);
 
-		return new Response(JSON.stringify(_jsonData), {
+		req.respond({
+			body: JSON.stringify(_jsonData),
 			status: 200,
-			headers: {
-				"Access-Control-Allow-Origin": "*",
-				"Access-Control-Allow-Methods": "GET",
-				"content-type": "application/json; charset=utf-8",
-			},
 		});
+		// return new Response(JSON.stringify(_jsonData), {
+		// 	status: 200,
+		// headers: {
+		// 	"Access-Control-Allow-Origin": "*",
+		// 	"Access-Control-Allow-Methods": "GET",
+		// 	"content-type": "application/json; charset=utf-8",
+		// },
+		// });
 	} catch (error) {
 		console.log(`Something went wrong: ${error}`);
-		return new Response(`Something went wrong: ${error}`);
+		req.respond({ status: 500, body: `Something went wrong: ${error}` });
+		// return new Response(`Something went wrong: ${error}`);
 	}
 };
