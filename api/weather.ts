@@ -12,16 +12,13 @@ export default async (req: ServerRequest): Promise<Response> => {
 
 	try {
 		const urlSplit = req.url.split("?")[1].split("&");
-		console.log(">>> urlSplit", urlSplit);
+
 		_lat = urlSplit[0];
 		_lon = urlSplit[1];
-
-		console.log("lat-long", _lat, _lon);
 
 		const url = new URL(
 			`${baseUrl}?${_lat}&${_lon}&appid=${apiKey}&units=metric`
 		);
-		console.log(url.toString());
 
 		const response = await fetch(url);
 		const jsonData = await response.json();
@@ -29,17 +26,12 @@ export default async (req: ServerRequest): Promise<Response> => {
 
 		console.log("response.statusText", response.statusText);
 		console.log("response.status", response.status);
-		console.log("response.url", response.url);
-		console.log(jsonData);
+		console.log("req.headers", _lat, _lon, req.headers);
 
 		return new Response(JSON.stringify(_jsonData), {
 			status: 200,
 			headers: {
 				"content-type": "application/json; charset=utf-8",
-				"Access-Control-Allow-Methods": "GET",
-				"Access-Control-Allow-Origin": "whatsweatherdoing.com",
-				"Access-Control-Allow-Headers":
-					"X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
 			},
 		});
 	} catch (error) {
