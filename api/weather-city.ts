@@ -27,7 +27,13 @@ export default async (req: ServerRequest): Promise<Response> => {
 		}
 		return new Response(JSON.stringify(_jsonData), {
 			status: 200,
-			headers: { "content-type": "application/json; charset=utf-8" },
+			headers: {
+				"content-type": "application/json; charset=utf-8",
+				"Access-Control-Allow-Methods": "GET",
+				"Access-Control-Allow-Origin": "whatsweatherdoing.com",
+				"Access-Control-Allow-Headers":
+					"X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
+			},
 		});
 	} catch (error) {
 		console.log(`Something went wrong: ${error}`);
