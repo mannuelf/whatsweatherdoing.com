@@ -18,7 +18,9 @@ export default async (req: ServerRequest): Promise<Response> => {
 
 		console.log("lat-long", _lat, _lon);
 
-		const url = new URL(`${baseUrl}?${_lat}&${_lon}&appid=${apiKey}`);
+		const url = new URL(
+			`${baseUrl}?${_lat}&${_lon}&appid=${apiKey}&units=metric`
+		);
 		console.log(url.toString());
 
 		const response = await fetch(url);
