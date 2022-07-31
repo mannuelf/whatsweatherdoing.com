@@ -1,13 +1,11 @@
 import { ServerRequest } from "https://deno.land/std@0.89.0/http/server.ts";
 import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
+import { oakCors } from "https://deno.land/x/cors/mod.ts";
 
+oakCors();
 config();
 
-export default async (
-	req: ServerRequest,
-	event: any,
-	context: any
-): Promise<Response> => {
+export default async (req: ServerRequest): Promise<Response> => {
 	const baseUrl = "https://api.openweathermap.org/data/2.5/weather";
 	const apiKey = Deno.env.get("OPEN_WEATHER_API_KEY");
 	let _jsonData;

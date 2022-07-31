@@ -1,6 +1,8 @@
 import { ServerRequest } from "https://deno.land/std@0.89.0/http/server.ts";
 import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
+import { oakCors } from "https://deno.land/x/cors/mod.ts";
 
+oakCors();
 config();
 
 export default async (req: ServerRequest): Promise<Response> => {
