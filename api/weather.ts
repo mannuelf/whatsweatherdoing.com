@@ -1,6 +1,5 @@
 import { ServerRequest } from "https://deno.land/std@0.89.0/http/server.ts";
 import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
-import { QueryStrings } from "./query-strings.ts";
 
 config();
 
@@ -12,20 +11,14 @@ export default async (req: ServerRequest): Promise<Response> => {
 	let _lon;
 
 	try {
-		const params = new URLSearchParams(req.url);
-		for (const [key, value] of params.entries()) {
-			console.log(">>>", key, value);
+		const urlSplit = req.url.split("?")[1].split("&");
+		console.log(">>> urlSplit", urlSplit);
+		_lat = urlSplit[0];
+		_lon = urlSplit[1];
 
-			if (key !== QueryStrings.lon) {
-				_lat = value;
-			}
-			if (key === QueryStrings.lon) {
-				_lon = value;
-			}
-		}
 		console.log("lat-long", _lat, _lon);
 
-		const url = new URL(`${baseUrl}?lat=${_lat}&lon=${_lon}&appid=${apiKey}`);
+		const url = new URL(`${baseUrl}?${_lat}&${_lon}&appid=${apiKey}`);
 		console.log(url.toString());
 
 		const response = await fetch(url);
