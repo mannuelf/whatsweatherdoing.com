@@ -20,9 +20,15 @@ export default async (req: ServerRequest): Promise<Response> => {
 			_jsonData = jsonData;
 		}
 
+		req.headers.append("Access-Control-Allow-Origin", "whatsweatherdoing.com");
+		req.headers.append("Access-Control-Allow-Methods", "GET");
+		console.log("req.headers", req.headers);
+
 		return new Response(JSON.stringify(_jsonData), {
 			status: 200,
 			headers: {
+				"Access-Control-Allow-Origin": "whatsweatherdoing.com",
+				"Access-Control-Allow-Methods": "GET",
 				"content-type": "application/json; charset=utf-8",
 			},
 		});

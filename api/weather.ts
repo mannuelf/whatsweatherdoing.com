@@ -24,13 +24,15 @@ export default async (req: ServerRequest): Promise<Response> => {
 		const jsonData = await response.json();
 		_jsonData = jsonData;
 
-		console.log("response.statusText", response.statusText);
-		console.log("response.status", response.status);
-		console.log("req.headers", _lat, _lon, req.headers);
+		req.headers.append("Access-Control-Allow-Origin", "whatsweatherdoing.com");
+		req.headers.append("Access-Control-Allow-Methods", "GET");
+		console.log("req.headers", req.headers);
 
 		return new Response(JSON.stringify(_jsonData), {
 			status: 200,
 			headers: {
+				"Access-Control-Allow-Origin": "whatsweatherdoing.com",
+				"Access-Control-Allow-Methods": "GET",
 				"content-type": "application/json; charset=utf-8",
 			},
 		});
