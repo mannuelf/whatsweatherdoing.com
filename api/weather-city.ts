@@ -3,7 +3,11 @@ import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
 
 config();
 
-export default async (req: ServerRequest): Promise<Response> => {
+export default async (
+	req: ServerRequest,
+	event: any,
+	context: any
+): Promise<Response> => {
 	const baseUrl = "https://api.openweathermap.org/data/2.5/weather";
 	const apiKey = Deno.env.get("OPEN_WEATHER_API_KEY");
 	let _jsonData;
@@ -20,14 +24,13 @@ export default async (req: ServerRequest): Promise<Response> => {
 			_jsonData = jsonData;
 		}
 
-		req.headers.append("Access-Control-Allow-Origin", "whatsweatherdoing.com");
+		req.headers.append("Access-Control-Allow-Origin", "*");
 		req.headers.append("Access-Control-Allow-Methods", "GET");
-		console.log("req.headers", req.headers);
 
 		return new Response(JSON.stringify(_jsonData), {
 			status: 200,
 			headers: {
-				"Access-Control-Allow-Origin": "whatsweatherdoing.com",
+				"Access-Control-Allow-Origin": "*",
 				"Access-Control-Allow-Methods": "GET",
 				"content-type": "application/json; charset=utf-8",
 			},
