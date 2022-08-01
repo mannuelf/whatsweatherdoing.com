@@ -1,8 +1,6 @@
 import { ServerRequest } from "https://deno.land/std@0.89.0/http/server.ts";
 import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
-import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 
-oakCors();
 config();
 
 export default async (req: ServerRequest): Promise<Response> => {
@@ -21,14 +19,8 @@ export default async (req: ServerRequest): Promise<Response> => {
 	const response = await fetch(url);
 	const jsonData = await response.json();
 
-	req.headers.append("Access-Control-Allow-Origin", "*");
-	req.headers.append("Access-Control-Allow-Methods", "GET");
-	console.log("req.headers", req.headers);
+	console.log("🏳 req.headers", req.headers);
 
-	req.respond({
-		body: JSON.stringify(jsonData),
-		status: 200,
-	});
 	return new Response(JSON.stringify(jsonData), {
 		status: 200,
 		headers: {
