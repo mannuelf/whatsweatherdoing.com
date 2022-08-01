@@ -8,43 +8,33 @@ config();
 export default async (req: ServerRequest): Promise<Response> => {
 	const baseUrl = "https://api.openweathermap.org/data/2.5/weather";
 	const apiKey = Deno.env.get("OPEN_WEATHER_API_KEY");
-	let _jsonData;
-	let _lat;
-	let _lon;
 
-	try {
-		const urlSplit = req.url.split("?")[1].split("&");
+	const urlSplit = req.url.split("?")[1].split("&");
 
-		_lat = urlSplit[0];
-		_lon = urlSplit[1];
+	const _lat = urlSplit[0];
+	const _lon = urlSplit[1];
 
-		const url = new URL(
-			`${baseUrl}?${_lat}&${_lon}&appid=${apiKey}&units=metric`
-		);
+	const url = new URL(
+		`${baseUrl}?${_lat}&${_lon}&appid=${apiKey}&units=metric`
+	);
 
-		const response = await fetch(url);
-		const jsonData = await response.json();
-		_jsonData = jsonData;
+	const response = await fetch(url);
+	const jsonData = await response.json();
 
-		req.headers.append("Access-Control-Allow-Origin", "*");
-		req.headers.append("Access-Control-Allow-Methods", "GET");
-		console.log("req.headers", req.headers);
+	req.headers.append("Access-Control-Allow-Origin", "*");
+	req.headers.append("Access-Control-Allow-Methods", "GET");
+	console.log("req.headers", req.headers);
 
-		req.respond({
-			body: JSON.stringify(_jsonData),
-			status: 200,
-		});
-		return new Response(JSON.stringify(_jsonData), {
-			status: 200,
-			headers: {
-				"Access-Control-Allow-Origin": "*",
-				"Access-Control-Allow-Methods": "GET",
-				"content-type": "application/json; charset=utf-8",
-			},
-		});
-	} catch (error) {
-		console.log(`Something went wrong: ${error}`);
-		req.respond({ status: 500, body: `Something went wrong: ${error}` });
-		// return new Response(`Something went wrong: ${error}`);
-	}
+	req.respond({
+		body: JSON.stringify(jsonData),
+		status: 200,
+	});
+	return new Response(JSON.stringify(jsonData), {
+		status: 200,
+		headers: {
+			"Access-Control-Allow-Origin": "*",
+			"Access-Control-Allow-Methods": "GET",
+			"content-type": "application/json; charset=utf-8",
+		},
+	});
 };
