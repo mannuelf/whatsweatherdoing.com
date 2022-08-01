@@ -34,14 +34,14 @@ export default async (req: ServerRequest): Promise<Response> => {
 			body: JSON.stringify(_jsonData),
 			status: 200,
 		});
-		// return new Response(JSON.stringify(_jsonData), {
-		// 	status: 200,
-		// headers: {
-		// 	"Access-Control-Allow-Origin": "*",
-		// 	"Access-Control-Allow-Methods": "GET",
-		// 	"content-type": "application/json; charset=utf-8",
-		// },
-		// });
+		return new Response(JSON.stringify(_jsonData), {
+			status: 200,
+			headers: {
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Methods": "GET",
+				"content-type": "application/json; charset=utf-8",
+			},
+		});
 	} catch (error) {
 		console.log(`Something went wrong: ${error}`);
 		req.respond({ status: 500, body: `Something went wrong: ${error}` });
