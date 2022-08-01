@@ -1,6 +1,6 @@
 import { ServerRequest } from "https://deno.land/std@0.89.0/http/server.ts";
 import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
-import { oakCors } from "https://deno.land/x/cors/mod.ts";
+import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 
 oakCors();
 config();
