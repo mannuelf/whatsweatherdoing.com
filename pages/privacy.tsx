@@ -14,9 +14,12 @@ const Privacy: NextPage = () => {
 			</Head>
 
 			<main className={styles.main}>
-				<h1 className={styles.title}>Privacy</h1>
-
-				<p className={styles.description}>Privacy policy</p>
+				<h1 className={styles.title}>Privacy Policy</h1>
+				<p>Whats weather doing application requires your location to enable it to call an open weather api.</p>
+				<p>The Open Weather API: <Link href={'https://openweathermap.org/current'}>click here to read more</Link>. This API will return the weather in your current location, Whats weather doing application provides only your Latitude and Longitude to the API, nothing else. 
+				</p>
+				<p>We do not collect any personal data or share it.</p>
+				<p>The location data is only used once and while using the feature of getting the weather in the users location. This can be turned off at any time.</p>
 			</main>
 
 			<footer className={styles.footer}>
